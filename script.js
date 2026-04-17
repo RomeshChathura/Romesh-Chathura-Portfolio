@@ -8,6 +8,41 @@ window.addEventListener('scroll', function() {
         nav.style.background = 'rgba(15, 15, 15, 0.9)';
         nav.style.boxShadow = 'none';
     }
+    
+});
+const textArray = ["Graphic Designer", "Visual Artist", "Creative Thinker"];
+const typingDelay = 100;
+const erasingDelay = 50;
+const newTextDelay = 2000; // වචනයක් ටයිප් වී තිබෙන කාලය
+let textArrayIndex = 0;
+let charIndex = 0;
+
+const typingText = document.getElementById("typing-text");
+
+function type() {
+  if (charIndex < textArray[textArrayIndex].length) {
+    typingText.textContent += textArray[textArrayIndex].charAt(charIndex);
+    charIndex++;
+    setTimeout(type, typingDelay);
+  } else {
+    setTimeout(erase, newTextDelay);
+  }
+}
+
+function erase() {
+  if (charIndex > 0) {
+    typingText.textContent = textArray[textArrayIndex].substring(0, charIndex - 1);
+    charIndex--;
+    setTimeout(erase, erasingDelay);
+  } else {
+    textArrayIndex++;
+    if (textArrayIndex >= textArray.length) textArrayIndex = 0;
+    setTimeout(type, typingDelay + 1100);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+  if (textArray.length) setTimeout(type, newTextDelay);
 });
 
 // Smooth scroll for internal links
